@@ -8,9 +8,13 @@ import resources.Parameters;
 
 import static io.restassured.RestAssured.given;
 
-public class GetRequestDemo {
+public class GETRequestDemo {
 
-    // create a google key here: -> https://developers.google.com/maps/documentation/distance-matrix/start
+    /*
+     * Replace this with your own Google API key.
+     * You can create a Google API key at the following location:
+     * https://developers.google.com/maps/documentation/distance-matrix/start
+     */
     String apiKey = Parameters.API_KEY;
 
     /**
@@ -48,6 +52,7 @@ public class GetRequestDemo {
         .when()
             .get("/distancematrix/json");
 
+        // You can either use .prettyPrint() or .asString()
         System.out.println(res.body().prettyPrint());
     }
 }
