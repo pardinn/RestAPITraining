@@ -11,7 +11,11 @@ import static org.hamcrest.Matchers.equalTo;
 
 public class ValidateResponse {
 
-    // create a google key here: -> https://developers.google.com/maps/documentation/distance-matrix/start
+    /*
+     * Replace this with your own Google API key.
+     * You can create a Google API key at the following location:
+     * https://developers.google.com/maps/documentation/distance-matrix/start
+     */
     String apiKey = Parameters.API_KEY;
 
     /**
@@ -35,9 +39,8 @@ public class ValidateResponse {
         .when()
             .get("/distancematrix/json")
         .then()
-            .statusCode(200)
-            .and()
-            .body("rows[0].elements[0].distance.text",equalTo("225 mi"))
+            .statusCode(200).and()
+            .body("rows[0].elements[0].distance.text",equalTo("225 mi")).and()
             .contentType(ContentType.JSON);
     }
 }
