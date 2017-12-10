@@ -13,12 +13,6 @@ import static io.restassured.RestAssured.given;
 
 public class GETRequestDemo {
 
-    /**
-     * In order for this to work, you need to rename the configTemplate.properties file as config.properties.
-     * In that file, you should fill the "google_api_key" with your own Google API key as value.
-     * You can create a Google API key at the following location:
-     * https://developers.google.com/maps/documentation/distance-matrix/start
-     */
     private Properties prop;
 
     /**

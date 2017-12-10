@@ -12,15 +12,6 @@ import static io.restassured.RestAssured.given;
 
 public class TwitterExtractResponse {
 
-    /**
-     * In order for this to work, you need to rename the configTemplate.properties file as config.properties.
-     * In that file, you should fill the twitter key=value pairs.
-     * You can create your Twitter key at the following location:
-     * https://apps.twitter.com
-     * You'll need to create a new app (if you don't have one for your account already)
-     * After that, you'll need to generate an Access Token for you.
-     * Once you've done all of this, you should have the API Key, API Secret, Access Token and Access Token Secret
-     */
     private Properties prop;
 
     @BeforeClass
