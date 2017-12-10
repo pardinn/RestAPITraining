@@ -11,9 +11,10 @@
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <!--<selenium.version>3.4.0</selenium.version>-->
         <testng.version>6.11</testng.version>
         <rest-assured.version>3.0.5</rest-assured.version>
+        <jackson-databind.version>2.9.3</jackson-databind.version>
+        <scribejava-apis.version>2.5.3</scribejava-apis.version>
     </properties>
 
     <dependencies>
@@ -29,6 +30,18 @@
             <version>${rest-assured.version}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson-databind.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.scribejava</groupId>
+            <artifactId>scribejava-apis</artifactId>
+            <version>${scribejava-apis.version}</version>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
 
