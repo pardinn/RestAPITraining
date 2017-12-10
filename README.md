@@ -12,7 +12,7 @@ You can create a Google API key at the following location:
 https://developers.google.com/maps/documentation/distance-matrix/start
 
 From there, you should see a button called "Get a key" on top right.
-You'll have to enable your key on all APIs being interacted with in this project
+You'll have to enable your key on all APIs being interacted with in this project.
 
 ## For Twitter API keys
 You can create your Twitter key at the following location:
