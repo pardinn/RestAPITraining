@@ -4,7 +4,6 @@ import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import resources.Parameters;
 import resources.PropertiesFileHandler;
 
 import java.util.Properties;
