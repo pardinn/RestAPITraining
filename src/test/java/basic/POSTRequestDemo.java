@@ -14,20 +14,22 @@ import static org.hamcrest.Matchers.equalTo;
 
 public class POSTRequestDemo {
 
-    private Properties prop;
+    private String apiKey;
 
     @BeforeClass
     public void setup() {
         RestAssured.baseURI = "https://maps.googleapis.com";
         RestAssured.basePath = "/maps/api";
-        prop = new Properties();
+        Properties prop = new Properties();
         PropertiesFileHandler.loadPropertiesFile(prop,"src/test/java/resources/config.properties");
+
+        apiKey = prop.getProperty("google_api_key");
     }
 
     @Test
     public void statusCodeVerification() {
         given()
-            .queryParam("key", prop.getProperty("google_api_key"))
+            .queryParam("key", apiKey)
             .body("{\n" +
                     "  \"location\": {\n" +
                     "    \"lat\": -33.8669710,\n" +
@@ -53,7 +55,7 @@ public class POSTRequestDemo {
     @Test
     public void printPOSTResponse() {
         Response res = given()
-                .queryParam("key", prop.getProperty("google_api_key"))
+                .queryParam("key", apiKey)
                 .body("{\n" +
                         "  \"location\": {\n" +
                         "    \"lat\": -33.8669710,\n" +

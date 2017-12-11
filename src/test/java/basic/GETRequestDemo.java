@@ -12,7 +12,7 @@ import static io.restassured.RestAssured.given;
 
 public class GETRequestDemo {
 
-    private Properties prop;
+    private String apiKey;
 
     /**
      * Given I have this information
@@ -23,8 +23,9 @@ public class GETRequestDemo {
     public void setup() {
         RestAssured.baseURI = "https://maps.googleapis.com";
         RestAssured.basePath = "/maps/api";
-        prop = new Properties();
+        Properties prop = new Properties();
         PropertiesFileHandler.loadPropertiesFile(prop,"src/test/java/resources/config.properties");
+        apiKey = prop.getProperty("google_api_key");
     }
 
     @Test(enabled = false)
@@ -33,7 +34,7 @@ public class GETRequestDemo {
             .param("units", "imperial")
             .param("origins", "Washington,DC")
             .param("destinations", "New+York+City,NY")
-            .param("key", prop.getProperty("google_api_key"))
+            .param("key", apiKey)
         .when()
             .get("/distancematrix/json")
         .then()
@@ -47,7 +48,7 @@ public class GETRequestDemo {
             .param("units", "imperial")
             .param("origins", "Washington,DC")
             .param("destinations", "New+York+City,NY")
-            .param("key", prop.getProperty("google_api_key"))
+            .param("key", apiKey)
         .when()
             .get("/distancematrix/json");
 

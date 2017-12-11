@@ -15,14 +15,16 @@ import static org.hamcrest.Matchers.equalTo;
 
 public class POSTRequestWithPOJO {
 
-    private Properties prop;
+    private String apiKey;
 
     @BeforeClass
     public void setUp() {
         RestAssured.baseURI = "https://maps.googleapis.com";
         RestAssured.basePath = "/maps/api";
-        prop = new Properties();
+        Properties prop = new Properties();
         PropertiesFileHandler.loadPropertiesFile(prop,"src/test/java/resources/config.properties");
+
+        apiKey = prop.getProperty("google_api_key");
     }
 
 
@@ -30,7 +32,7 @@ public class POSTRequestWithPOJO {
     public void printPOSTResponse() {
 
         Response res = given()
-                .queryParam("key", prop.getProperty("google_api_key")) //refer to Javadoc on top
+                .queryParam("key", apiKey)
                 .body(defaultPlaces())
             .when()
                 .post("/place/add/json");
@@ -41,7 +43,7 @@ public class POSTRequestWithPOJO {
     @Test
     public void statusCodeVerification() {
         given()
-            .queryParam("key", prop.getProperty("google_api_key"))  //refer to Javadoc on top
+            .queryParam("key", apiKey)
             .body(defaultPlaces())
         .when()
             .post("/place/add/json")

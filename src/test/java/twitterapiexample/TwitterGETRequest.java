@@ -12,15 +12,23 @@ import static io.restassured.RestAssured.given;
 
 public class TwitterGETRequest {
 
-    private Properties prop;
+    private String consumerKey;
+    private String consumerSecret;
+    private String accessToken;
+    private String accessSecret;
     private String tweetId = "";
 
     @BeforeClass
     public void setup() {
         RestAssured.baseURI = "https://api.twitter.com";
         RestAssured.basePath = "/1.1/statuses";
-        prop = new Properties();
+        Properties prop = new Properties();
         PropertiesFileHandler.loadPropertiesFile(prop,"src/test/java/resources/config.properties");
+
+        consumerKey= prop.getProperty("twitter_api_key");
+        consumerSecret= prop.getProperty("twitter_api_secret");
+        accessToken= prop.getProperty("twitter_access_token");
+        accessSecret= prop.getProperty("twitter_access_token_secret");
     }
 
     @Test
@@ -28,10 +36,7 @@ public class TwitterGETRequest {
         Response response =
             given()
                 .auth()
-                .oauth(prop.getProperty("twitter_api_key"),
-                        prop.getProperty("twitter_api_secret"),
-                        prop.getProperty("twitter_access_token"),
-                        prop.getProperty("twitter_access_token_secret"))
+                .oauth(consumerKey,consumerSecret,accessToken,accessSecret)
                 .queryParam("status", "Tweet generated using RestAssured API with Java")
             .when()
                 .post("/update.json")
@@ -49,10 +54,7 @@ public class TwitterGETRequest {
         Response response =
             given()
                 .auth()
-                .oauth(prop.getProperty("twitter_api_key"),
-                        prop.getProperty("twitter_api_secret"),
-                        prop.getProperty("twitter_access_token"),
-                        prop.getProperty("twitter_access_token_secret"))
+                .oauth(consumerKey,consumerSecret,accessToken,accessSecret)
                 .queryParam("id", tweetId)
             .when()
                 .get("/show.json")
