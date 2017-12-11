@@ -1,7 +1,6 @@
 package twitterapiexample;
 
 import io.restassured.RestAssured;
-import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -11,9 +10,10 @@ import java.util.Properties;
 
 import static io.restassured.RestAssured.given;
 
-public class TwitterExtractResponse {
+public class TwitterGETRequest {
 
     private Properties prop;
+    private String tweetId = "";
 
     @BeforeClass
     public void setup() {
@@ -24,7 +24,7 @@ public class TwitterExtractResponse {
     }
 
     @Test
-    public void extractResponse() {
+    public void postTweet() {
         Response response =
             given()
                 .auth()
@@ -39,14 +39,29 @@ public class TwitterExtractResponse {
                 .statusCode(200)
                 .extract().response();
 
-        String id = response.path("id_str");
-        System.out.println("The response.path: " + id);
+        tweetId = response.path("id_str");
+        System.out.println("The tweet id is: " + tweetId);
 
-        String responseString = response.asString();
-        System.out.println(responseString);
-
-        JsonPath jsPath = new JsonPath(responseString);
-        String name = jsPath.get("user.name");
-        System.out.println("The username is: " + name);
     }
+
+    @Test(dependsOnMethods = {"postTweet"})
+    public void readTweet() {
+        Response response =
+            given()
+                .auth()
+                .oauth(prop.getProperty("twitter_api_key"),
+                        prop.getProperty("twitter_api_secret"),
+                        prop.getProperty("twitter_access_token"),
+                        prop.getProperty("twitter_access_token_secret"))
+                .queryParam("id", tweetId)
+            .when()
+                .get("/show.json")
+            .then()
+                .statusCode(200)
+                .extract().response();
+
+        String text = response.path("text");
+        System.out.println("The tweet text is: " + text);
+    }
+
 }
